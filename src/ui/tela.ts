@@ -28,6 +28,10 @@ export function ligarTela(): void {
   const cargos = exigir<HTMLUListElement>("cargos");
   const motor = exigir<HTMLParagraphElement>("motor");
   const reiniciar = exigir<HTMLButtonElement>("reiniciar");
+  const acoes = exigir<HTMLDivElement>("acoes-leitura");
+  const confirma = exigir<HTMLDivElement>("confirma-reinicio");
+  const cancelarReinicio = exigir<HTMLButtonElement>("cancelar-reinicio");
+  const confirmarReinicio = exigir<HTMLButtonElement>("confirmar-reinicio");
   const enviar = exigir<HTMLButtonElement>("enviar");
   const dica = exigir<HTMLParagraphElement>("dica-envio");
   const mira = document.querySelector<HTMLElement>(".mira");
@@ -96,14 +100,43 @@ export function ligarTela(): void {
     });
   });
 
-  reiniciar.addEventListener("click", () => {
-    const estado = controlador.estado();
-    const jaLeu = estado.contagemDados !== "0" || estado.contagemCertificado !== "0";
-    if (jaLeu && !window.confirm("Apagar a leitura deste boletim?")) return;
+  const apagarLeitura = () => {
     controlador.reiniciar();
     leitor.esquecer();
     desenhar(controlador.estado());
     status.textContent = "Leitura apagada. Aponte para os QR Codes.";
+    void leitor.acordar().catch(() => {
+      abrir.hidden = false;
+      abrir.disabled = false;
+      status.textContent = "A câmera parou. Toque em Abrir câmera.";
+    });
+  };
+
+  const fecharConfirmacao = () => {
+    confirma.hidden = true;
+    acoes.hidden = false;
+  };
+
+  reiniciar.addEventListener("click", () => {
+    const estado = controlador.estado();
+    const jaLeu = estado.contagemDados !== "0" || estado.contagemCertificado !== "0";
+    if (!jaLeu) {
+      apagarLeitura();
+      return;
+    }
+    leitor.suspender();
+    acoes.hidden = true;
+    confirma.hidden = false;
+  });
+
+  cancelarReinicio.addEventListener("click", () => {
+    fecharConfirmacao();
+    void leitor.acordar();
+  });
+
+  confirmarReinicio.addEventListener("click", () => {
+    fecharConfirmacao();
+    apagarLeitura();
   });
 
   let enviando = false;

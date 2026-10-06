@@ -38,9 +38,16 @@
     </section>
     <footer class="rodape">
       <p id="dica-envio">Leia todos os QR Codes de dados e de certificado.</p>
-      <div class="acoes">
+      <div class="acoes" id="acoes-leitura">
         <button id="reiniciar" type="button">Reiniciar</button>
         <button id="enviar" type="button" disabled>Enviar</button>
+      </div>
+      <div id="confirma-reinicio" class="confirma" hidden>
+        <p>Apagar a leitura deste boletim?</p>
+        <div class="acoes">
+          <button id="cancelar-reinicio" type="button">Cancelar</button>
+          <button id="confirmar-reinicio" type="button">Apagar</button>
+        </div>
       </div>
     </footer>
   </main>

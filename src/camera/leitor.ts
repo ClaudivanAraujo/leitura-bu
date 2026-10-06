@@ -158,7 +158,7 @@ export class LeitorCamera {
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) this.pausar();
-      else this.retomar();
+      else void this.acordar();
     }, { signal: this.ouvintes.signal });
 
     this.agendar();
@@ -183,6 +183,22 @@ export class LeitorCamera {
     this.ultimoQuando = 0;
   }
 
+  suspender(): void {
+    this.pausar();
+  }
+
+  async acordar(): Promise<void> {
+    if (this.encerrado) return;
+    const trilhaMorta = !this.trilha || this.trilha.readyState === "ended";
+    if (trilhaMorta) {
+      await this.iniciar();
+      return;
+    }
+    this.pausado = false;
+    if (this.video.paused) await this.video.play().catch(() => undefined);
+    this.agendar();
+  }
+
   lanternaDisponivel(): boolean {
     return this.suportaLanterna;
   }
@@ -205,13 +221,8 @@ export class LeitorCamera {
     window.clearTimeout(this.timer);
   }
 
-  private retomar(): void {
-    if (this.encerrado) return;
-    this.pausado = false;
-    this.agendar();
-  }
-
   private agendar(): void {
+    window.clearTimeout(this.timer);
     if (this.encerrado || this.pausado) return;
     const espera = this.motor === "nativo" ? 200 : 350;
     this.timer = window.setTimeout(() => {

@@ -190,8 +190,25 @@ button {
   color: #5c6b7c;
 }
 
-#reiniciar {
+#reiniciar,
+#cancelar-reinicio {
   background: #fff;
   border: 1px solid var(--linha);
   color: var(--tinta);
+}
+
+.confirma {
+  padding-bottom: 4px;
+}
+
+.confirma p {
+  margin: 0;
+  padding: 8px 16px 0;
+  font-weight: 650;
+}
+
+#confirmar-reinicio {
+  background: var(--acao);
+  color: #fff;
+  font-weight: 650;
 }
