@@ -1,0 +1,197 @@
+:root {
+  color-scheme: light;
+  --fundo: #eef2f6;
+  --tinta: #142033;
+  --suave: #4c5b6d;
+  --painel: #ffffff;
+  --linha: #d5dde6;
+  --ok: #0d7a45;
+  --erro: #a32020;
+  --aviso: #8a5a00;
+  --acao: #0b5cab;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.35;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+}
+
+#app {
+  min-height: 100dvh;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+header {
+  padding: 12px 16px 8px;
+}
+
+h1, h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+h2 { font-size: 1rem; }
+
+#status {
+  margin: 4px 0 0;
+  color: var(--suave);
+}
+
+.visor {
+  position: relative;
+  background: #000;
+  aspect-ratio: 3 / 4;
+  max-height: 58dvh;
+  overflow: hidden;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
+.mira {
+  position: absolute;
+  inset: 14% 12%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  transition: border-color 0.2s ease;
+}
+
+.mira.lida { border-color: #7dffa8; }
+
+button {
+  font: inherit;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 0;
+  touch-action: manipulation;
+}
+
+#abrir {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: #fff;
+  color: var(--tinta);
+  font-weight: 650;
+}
+
+#abrir:disabled { opacity: 0.7; }
+
+#lanterna {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  min-height: 44px;
+  padding: 0 14px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+}
+
+#lanterna[aria-pressed="true"] {
+  background: #f5d76e;
+  color: #1c1608;
+}
+
+.painel {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.medidores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.medidor {
+  margin: 0;
+  background: var(--painel);
+  border: 1px solid var(--linha);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.medidor span {
+  display: block;
+  color: var(--suave);
+  font-size: 0.85rem;
+}
+
+.medidor strong {
+  font-size: 1.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.rodape {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  background: var(--fundo);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.acoes {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+#dica-envio {
+  margin: 0;
+  padding: 8px 16px 8px;
+  color: var(--suave);
+}
+
+#aviso { margin: 0; font-weight: 650; }
+#aviso[data-tipo="novo"] { color: var(--ok); }
+#aviso[data-tipo="duplicado"] { color: var(--aviso); }
+#aviso[data-tipo="erro"] { color: var(--erro); }
+
+#hashes, #campos, #cargos {
+  margin: 8px 0 0;
+  padding-left: 1.1rem;
+}
+
+.hash-ok { color: var(--ok); }
+.hash-invalido { color: var(--erro); }
+.hash-aguardando { color: var(--suave); }
+
+.motor { color: var(--suave); font-size: 0.85rem; margin: 0; }
+
+#faltando { margin: 0; }
+
+#enviar {
+  background: var(--acao);
+  color: #fff;
+  font-weight: 650;
+}
+
+#enviar:disabled {
+  background: #c5ced8;
+  color: #5c6b7c;
+}
+
+#reiniciar {
+  background: #fff;
+  border: 1px solid var(--linha);
+  color: var(--tinta);
+}

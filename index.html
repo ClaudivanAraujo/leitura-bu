@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#102033" />
+    <title>Leitura do Boletim de Urna</title>
+  </head>
+  <body>
+    <main id="app">
+      <header>
+        <h1>Boletim de urna</h1>
+        <p id="status" role="status">Aponte a câmera para os QR Codes do boletim.</p>
+      </header>
+      <div class="visor">
+        <video id="video" playsinline muted autoplay aria-label="Câmera para leitura do QR Code"></video>
+        <div class="mira" aria-hidden="true"></div>
+        <button id="lanterna" type="button" hidden aria-pressed="false">Lanterna</button>
+        <button id="abrir" type="button">Abrir câmera</button>
+      </div>
+      <section class="painel" aria-label="Progresso da leitura">
+        <div class="medidores">
+          <p class="medidor"><span>Dados</span><strong id="contagem-dados">0</strong></p>
+          <p class="medidor"><span>Certificado</span><strong id="contagem-certificado">0</strong></p>
+        </div>
+        <p id="faltando">Aguardando o primeiro QR Code.</p>
+        <p id="aviso" class="aviso" role="status" hidden></p>
+        <ul id="hashes" aria-label="Validação dos hashes"></ul>
+        <div id="identificacao" hidden>
+          <h2>Identificação</h2>
+          <ul id="campos"></ul>
+        </div>
+        <div id="resumo" hidden>
+          <h2>Cargos</h2>
+          <ul id="cargos"></ul>
+        </div>
+      <p id="motor" class="motor"></p>
+    </section>
+    <footer class="rodape">
+      <p id="dica-envio">Leia todos os QR Codes de dados e de certificado.</p>
+      <div class="acoes">
+        <button id="reiniciar" type="button">Reiniciar</button>
+        <button id="enviar" type="button" disabled>Enviar</button>
+      </div>
+    </footer>
+  </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
